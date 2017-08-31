@@ -1,26 +1,21 @@
 Dependencies for Project 'ch01', Target 'ch01': (DO NOT MODIFY !)
-F (..\..\User\src\main.c)(0x59A6A87A)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
-I (D:\Program\Keil4\ARM\Inc\ST\STM32F10x\stm32f10x.h)(0x51C7AFEA)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cm3.h)(0x51C7B54A)
+F (..\..\User\src\main.c)(0x59A78568)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cmInstr.h)(0x51C7B54A)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cmFunc.h)(0x51C7B54A)
-I (D:\Program\Keil4\ARM\Inc\ST\STM32F10x\system_stm32f10x.h)(0x51C7AFEA)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupBasePeriph.h)(0x599F7C35)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupDelay.h)(0x599E3DE2)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\User\inc\functions.h)(0x599F9336)
-I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupNVIC.h)(0x59A6A654)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupUsart.h)(0x59A6A87A)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdio.h)(0x51C7B744)
 I (D:\Program\Keil4\ARM\ARMCC\include\string.h)(0x51C7B744)
-F (..\..\User\src\functions.c)(0x59A6A654)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\functions.o --omf_browse ..\obj\functions.crf --depend ..\obj\functions.d)
+F (..\..\User\src\functions.c)(0x59A76998)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\functions.o --omf_browse ..\obj\functions.crf --depend ..\obj\functions.d)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\User\inc\functions.h)(0x599F9336)
-I (D:\Program\Keil4\ARM\Inc\ST\STM32F10x\stm32f10x.h)(0x51C7AFEA)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cm3.h)(0x51C7B54A)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cmInstr.h)(0x51C7B54A)
-I (D:\Program\Keil4\ARM\CMSIS\Include\core_cmFunc.h)(0x51C7B54A)
-I (D:\Program\Keil4\ARM\Inc\ST\STM32F10x\system_stm32f10x.h)(0x51C7AFEA)
+I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupDelay.h)(0x599E3DE2)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupBasePeriph.h)(0x599F7C35)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupUsart.h)(0x59A6A87A)
@@ -35,21 +30,19 @@ I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
-F (..\..\Hardware\src\briupBasePeriph.c)(0x59A6AB8E)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupbaseperiph.o --omf_browse ..\obj\briupbaseperiph.crf --depend ..\obj\briupbaseperiph.d)
+F (..\..\Hardware\src\briupBasePeriph.c)(0x59A76969)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupbaseperiph.o --omf_browse ..\obj\briupbaseperiph.crf --depend ..\obj\briupbaseperiph.d)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupBasePeriph.h)(0x599F7C35)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
-I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupNVIC.h)(0x59A6A654)
-I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupDelay.h)(0x599E3DE2)
 F (..\..\Hardware\src\briupDelay.c)(0x599E4637)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupdelay.o --omf_browse ..\obj\briupdelay.crf --depend ..\obj\briupdelay.d)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupDelay.h)(0x599E3DE2)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
-F (..\..\Hardware\src\briupUsart.c)(0x59A6ACDA)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupusart.o --omf_browse ..\obj\briupusart.crf --depend ..\obj\briupusart.d)
+F (..\..\Hardware\src\briupUsart.c)(0x59A77188)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupusart.o --omf_browse ..\obj\briupusart.crf --depend ..\obj\briupusart.d)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupUsart.h)(0x59A6A87A)
 I (D:\Program\Keil4\ARM\ARMCC\include\stdio.h)(0x51C7B744)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
@@ -57,7 +50,7 @@ I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_
 I (D:\Program\Keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupNVIC.h)(0x59A6A654)
-F (..\..\Hardware\src\briupNVIC.c)(0x59A6B216)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupnvic.o --omf_browse ..\obj\briupnvic.crf --depend ..\obj\briupnvic.d)
+F (..\..\Hardware\src\briupNVIC.c)(0x59A6D3D8)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\..\User\inc -I..\..\Libraries\CMSIS\CM3\CoreSupport -I..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\..\Hardware\inc -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc-I D:\Program\Keil4\ARM\RV31\INC-I D:\Program\Keil4\ARM\CMSIS\Include-I D:\Program\Keil4\ARM\Inc\ST\STM32F10x-DSTM32F10X_HD -o ..\obj\briupnvic.o --omf_browse ..\obj\briupnvic.crf --depend ..\obj\briupnvic.d)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Hardware\inc\briupNVIC.h)(0x59A6A654)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x59A6AB8F)
 I (E:\MCU\keil4Workspace\EMSD1701\muxiaozi\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x59A6AB8E)

@@ -70,7 +70,7 @@ void ExNVICInit(u8 GPIOx, u8 Bitx, u8 TRIM)
 	//开启AFIO时钟
 	RCC->APB2ENR |= 0x01;
 	//将传入的IO引脚映射到对应EXTI线
-	AFIO->EXTICR[exAddr] = GPIOx <<exOffset;
+	AFIO->EXTICR[exAddr] |= GPIOx <<exOffset;
 	
 	//开放IO引脚对应外部中断线上的中断屏蔽位
 	EXTI->IMR |= 1 << Bitx;

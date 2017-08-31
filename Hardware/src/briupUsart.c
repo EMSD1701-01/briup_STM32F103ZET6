@@ -66,7 +66,11 @@ void usart1Init(u32 bound)
 	//USART1中断配置
 	//接收缓存区非空中断
 	USART1->CR1 |= 1 << 5;
-	NVICPriorityConfig(3, 3, USART1_IRQn);
+	
+	//NVICPriorityConfig(3, 3, USART1_IRQn);
+	NVIC_SetPriorityGrouping(5);
+	NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(5, 1, 1));
+	NVIC_EnableIRQ(USART1_IRQn);
 }
 
 /**
@@ -145,14 +149,15 @@ char *usart1GetStrAsyn(char *buf)
 	return buf;
 }
 
+/**
+ * 串口1中断服务函数
+ */
 void USART1_IRQHandler()
 {
-	//判断是否市接收寄存器非空引发的中断
+	//判断是否是接收寄存器非空引发的中断
 	if(USART1->SR & 1<<5)
 	{
 		char buf[64];
 		printf("From stm32: %s \n", usart1GetStr(buf));
 	}
-	
-	
 }

@@ -5,8 +5,6 @@
 * Description: 对基础外设接口的实现文件
 ****************************************/
 #include "briupBasePeriph.h"
-#include "briupNVIC.h"
-#include "briupDelay.h"
 
 /** 
  * 初始化外设
@@ -29,16 +27,6 @@ void basePeriphInit(void)
 	GPIOC->CRL &= ~(0xf<<16);	//PC Pin.4
 	GPIOC->CRL |= 0x8<<16;
 	GPIOC->ODR |= 0x1<<4;		//GPIOC对应端口上拉
-	
-	//select
-	//调用GPIO映射接口
-	ExNVICInit(GPIO_G, 6, 0x3);
-	//设置外部中断线6的优先级和中断源
-	NVICPriorityConfig(3, 1, EXTI9_5_IRQn);
-	
-	//up
-	ExNVICInit(GPIO_G, 11, 0x3);
-	NVICPriorityConfig(1, 1, EXTI15_10_IRQn);
 	
 	//配置Beep
 	RCC->APB2ENR |= 0x1<<8; //GPIOG
@@ -107,20 +95,4 @@ u8 getJoy(void)
 	if(!(GPIOG->IDR & (1<<9))) temp |= 0x1<<3;
 	if(!(GPIOC->IDR & (1<<4))) temp |= 0x1<<4;
 	return temp;
-}
-
-//select中断服务函数
-void EXTI9_5_IRQHandler()
-{
-	setLed(LED_C);
-	delay_ms(1000);
-	EXTI->PR |= 1 << 6;
-}
-
-//up中断服务函数
-void EXTI15_10_IRQHandler()
-{
-	setLed(~LED_W);
-	delay_ms(1000);
-	EXTI->PR |= 1 << 11;
 }
