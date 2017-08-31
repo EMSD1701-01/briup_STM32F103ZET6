@@ -5,6 +5,10 @@
 * Description: 对基础外设接口的实现文件
 ****************************************/
 #include "briupBasePeriph.h"
+#include "briupNVIC.h"
+
+//五项按键回调函数
+static JoyCB joyCb = 0;
 
 /** 
  * 初始化外设
@@ -39,6 +43,24 @@ void basePeriphInit(void)
 	GPIOG->CRH |= 0x3<<20;
 	GPIOC->CRL &= ~(0xf<<12); //PC Pin.3
 	GPIOC->CRL |= 0x3<<12;
+}
+
+/**
+ * 设置五项按键中断
+ */
+void setJoyInterrupt(JoyCB cb)
+{
+	joyCb = cb;
+	
+	NVICPriorityConfig(2, 1, EXTI4_IRQn);		//PC4
+	NVICPriorityConfig(2, 1, EXTI9_5_IRQn);		//PG6/7/9
+	NVICPriorityConfig(2, 1, EXTI15_10_IRQn);	//PG11
+	
+	ExNVICInit(GPIO_C, 4, 0x1);
+	ExNVICInit(GPIO_G, 6, 0x1);
+	ExNVICInit(GPIO_G, 7, 0x1);
+	ExNVICInit(GPIO_G, 9, 0x1);
+	ExNVICInit(GPIO_G, 11, 0x1);
 }
 
 /** 
@@ -95,4 +117,28 @@ u8 getJoy(void)
 	if(!(GPIOG->IDR & (1<<9))) temp |= 0x1<<3;
 	if(!(GPIOC->IDR & (1<<4))) temp |= 0x1<<4;
 	return temp;
+}
+
+void EXTI4_IRQHandler()
+{
+	u8 joy = getJoy();
+	if(joyCb) joyCb(joy);
+	while(joy = getJoy(), joy);
+	EXTI->PR = 0xad0;
+}
+
+void EXTI9_5_IRQHandler()
+{
+	u8 joy = getJoy();
+	if(joyCb) joyCb(joy);
+	while(joy = getJoy(), joy);
+	EXTI->PR = 0xad0;
+}
+
+void EXTI15_10_IRQHandler()
+{
+	u8 joy = getJoy();
+	if(joyCb) joyCb(joy);
+	while(joy = getJoy(), joy);
+	EXTI->PR = 0xad0;
 }

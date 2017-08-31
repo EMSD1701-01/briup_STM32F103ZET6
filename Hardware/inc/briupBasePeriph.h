@@ -25,6 +25,9 @@
 #define JOY_L 0x08 //PG9
 #define JOY_R 0x10 //PC4
 
+//按键中断回调
+typedef void(*JoyCB)(u8 type);
+
 //继电器
 #define RELAY_1	0x1	//继电器1
 #define RELAY_2 0x2 //继电器2
@@ -34,6 +37,12 @@
  * 初始化外设
  */
 void basePeriphInit(void);
+
+/**
+ * 设置五项按键中断
+ * @param cb 按键中断回调函数
+ */
+void setJoyInterrupt(JoyCB cb);
 
 /** 
  * LED配置

@@ -13,6 +13,8 @@
 #include <string.h>
 #include "briupNVIC.h"
 
+void JoyHandler(u8 type);
+
 u16 beepFreq[] = {
 	17208, 15332, 13657, 12893, 11479, 10227, 9109
 };
@@ -27,18 +29,54 @@ int main()
 	NVICGroupInit(2);
 	TIM2Init(4);
 	
+	setJoyInterrupt(JoyHandler);
+	
 	while(1)
 	{
 		TIM2Start(beepFreq[count]);
-		delay_ms(100);
+		delay_ms(200);
 		TIM2Stop();
 		setBeep(0);
-		delay_ms(100);
+		delay_s(3);
 		count++;
 		if(count >= 7)
 		{
 			count = 0;
 		}
+	}
+}
+
+void JoyHandler(u8 type)
+{
+	switch(type)
+	{
+		case JOY_S:
+			TIM2Start(beepFreq[1]);
+		break;
+		
+		case JOY_D:
+			TIM2Start(beepFreq[2]);
+		break;
+		
+		case JOY_L:
+			TIM2Start(beepFreq[3]);
+		break;
+		
+		case JOY_U:
+			TIM2Start(beepFreq[4]);
+		break;
+		
+		case JOY_R:
+			TIM2Start(beepFreq[5]);
+		break;
+		
+		case JOY_S | JOY_D:
+			TIM2Start(beepFreq[6]);
+		break;
+		
+		default:
+			TIM2Start(beepFreq[0]);
+		break;
 	}
 }
 

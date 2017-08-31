@@ -87,34 +87,3 @@ void testBasePeriph(u8 block)
 		}
 	}while(block);
 }
-
-//	//select
-//	//调用GPIO映射接口
-//	ExNVICInit(GPIO_G, 6, 0x3);
-//	//设置外部中断线6的优先级和中断源
-//	NVICPriorityConfig(3, 1, EXTI9_5_IRQn);
-//	
-//	//up
-//	ExNVICInit(GPIO_G, 11, 0x3);
-//	NVICPriorityConfig(1, 1, EXTI15_10_IRQn);
-
-/**
- * select中断服务函数
- */
-void EXTI9_5_IRQHandler()
-{
-	setLed(LED_C);
-	delay_ms(1000);
-	EXTI->PR |= 1 << 6;
-}
-
-/**
- * up中断服务函数
- */
-void EXTI15_10_IRQHandler()
-{
-	setLed(~LED_W);
-	delay_ms(1000);
-	EXTI->PR |= 1 << 11;
-}
-

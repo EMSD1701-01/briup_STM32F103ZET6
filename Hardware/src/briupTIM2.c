@@ -30,7 +30,7 @@ void TIM2Init(u16 psc)
 	TIM2->DIER |= 0x01;
 	
 	//注册定时器2中断向量
-	NVICPriorityConfig(2, 1, TIM2_IRQn);
+	NVICPriorityConfig(3, 1, TIM2_IRQn);
 }
 
 /**
