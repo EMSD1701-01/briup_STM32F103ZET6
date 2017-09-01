@@ -21,7 +21,6 @@ u16 beepFreq[] = {
 
 int main()
 {
-	int count = 0;
 	usart1Init(57600);
 	basePeriphInit();
 	delay_init(72);
@@ -33,50 +32,46 @@ int main()
 	
 	while(1)
 	{
-		TIM2Start(beepFreq[count]);
-		delay_ms(200);
-		TIM2Stop();
-		setBeep(0);
-		delay_s(3);
-		count++;
-		if(count >= 7)
-		{
-			count = 0;
-		}
+		breathLed();
 	}
 }
 
 void JoyHandler(u8 type)
 {
+	printf("input %d\n", type);
 	switch(type)
 	{
 		case JOY_S:
-			TIM2Start(beepFreq[1]);
+			TIM2Start(beepFreq[0]);
+			setLed(LED_R);
 		break;
 		
 		case JOY_D:
-			TIM2Start(beepFreq[2]);
+			setLed(LED_G);
+
 		break;
 		
 		case JOY_L:
-			TIM2Start(beepFreq[3]);
+			setLed(LED_B);
+
 		break;
 		
 		case JOY_U:
-			TIM2Start(beepFreq[4]);
+			setLed(LED_P);
 		break;
 		
 		case JOY_R:
-			TIM2Start(beepFreq[5]);
-		break;
-		
-		case JOY_S | JOY_D:
-			TIM2Start(beepFreq[6]);
+			setLed(LED_C);
 		break;
 		
 		default:
-			TIM2Start(beepFreq[0]);
+			setLed(LED_W);
 		break;
 	}
+	
+	while(getJoy());
+	TIM2Stop();
+	setBeep(0);
+	
 }
 
