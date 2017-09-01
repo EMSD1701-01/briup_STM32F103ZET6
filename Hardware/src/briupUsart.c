@@ -61,6 +61,9 @@ void usart1Init(u32 bound)
 	
 	//USART1寄存器配置
 	USART1->BRR = mantissa;
+	//bit13 USART使能
+	//bit2	接收使能
+	//bit3	发送使能
 	USART1->CR1 |= 1<<13 | 1<<3 | 1<<2;
 	
 	//USART1中断配置
