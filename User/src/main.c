@@ -12,6 +12,7 @@
 #include "briupTIM2.h"
 #include <string.h>
 #include "briupNVIC.h"
+#include "briupLCD.h"
 
 void JoyHandler(u8 type);
 
@@ -28,6 +29,9 @@ int main()
 	NVICGroupInit(2);
 	TIM2Init(4);
 	
+	briupLcdDisplayOn();
+	briupLcdInit();
+	briupLcdFastDrawCircle(240, 240, 10, 2, 0);
 	setJoyInterrupt(JoyHandler);
 	
 	while(1)
