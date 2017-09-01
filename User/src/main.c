@@ -47,20 +47,22 @@ void JoyHandler(u8 type)
 		break;
 		
 		case JOY_D:
+			TIM2Start(beepFreq[1]);
 			setLed(LED_G);
-
 		break;
 		
 		case JOY_L:
+			TIM2Start(beepFreq[2]);
 			setLed(LED_B);
-
 		break;
 		
 		case JOY_U:
+			TIM2Start(beepFreq[3]);
 			setLed(LED_P);
 		break;
 		
 		case JOY_R:
+			TIM2Start(beepFreq[4]);
 			setLed(LED_C);
 		break;
 		
@@ -72,6 +74,5 @@ void JoyHandler(u8 type)
 	while(getJoy());
 	TIM2Stop();
 	setBeep(0);
-	
 }
 
