@@ -10,11 +10,11 @@
     - STM32F10X_HD
 
 3. C/C++ -> IncludePath添加
-    - ..\..\User\inc
-    - ..\..\Libraries\CMSIS\CM3\CoreSupport
-    - ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x
-    - ..\..\Hardware\inc
-    - ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc
+    - ..\User\inc
+    - ..\Libraries\CMSIS\CM3\CoreSupport
+    - ..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x
+    - ..\Hardware\inc
+    - ..\Libraries\STM32F10x_StdPeriph_Driver\inc
     
 #### 目录树
 ```
