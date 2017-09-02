@@ -35,8 +35,15 @@ int main()
 
 void JoyHandler(u8 type)
 {
-	//printf("input %d\n", type);
+	static u16 jcnt = 0; //按键延时计数器
+	delay_ms(200); //防止按键按下很短时间内再次响应按键
 	g_gameKeyDown[g_gameState](type);
-	while(getJoy());
+	while(getJoy())
+	{
+		if(jcnt++ == 0xffff)
+		{
+			g_gameKeyDown[g_gameState](type);
+		}
+	}
 }
 

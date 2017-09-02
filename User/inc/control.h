@@ -14,25 +14,31 @@ typedef enum GameState
 {
 	STATE_MENU,		//菜单状态
 	STATE_PLAY,		//游戏状态
-	STATE_STOP,		//暂停状态
 	STATE_GAMEOVER	//游戏结束
 }GameState_Type;
 
-//菜单
+//开始菜单
 typedef enum Menu
 {
 	MENU_PLAY,	//手动模式
 	MENU_AUTO	//自动模式
 }Menu_Type;
 
+//游戏结束菜单
+typedef enum GameOver
+{
+	GAME0VER_RESTART,	//重新开始
+	GAMEOVER_MENU		//进入菜单
+}GameOver_Type;
+
 //全局游戏状态
 extern GameState_Type g_gameState;
 //全局菜单状态
 extern Menu_Type g_menu;
 //全局游戏按键处理
-extern void(*g_gameKeyDown[4])(u8 type);
+extern void(*g_gameKeyDown[3])(u8 type);
 //全局游戏事件更新
-extern void(*g_gameUpdate[4])(void);
+extern void(*g_gameUpdate[3])(void);
 //行数
 extern const u8 g_row;
 //列数
@@ -44,7 +50,6 @@ extern const u8 g_col;
  */
 static void menuKeyDown(u8 type);		//菜单
 static void playKeyDown(u8 type);		//游戏中
-static void stopKeyDown(u8 type);		//暂停
 static void gameoverKeyDown(u8 type);	//游戏结束
 
 /**
@@ -52,7 +57,6 @@ static void gameoverKeyDown(u8 type);	//游戏结束
  */
 static void menuUpdate(void);		//菜单
 static void playUpdate(void);		//游戏中
-static void stopUpdate(void);		//暂停
 static void gameoverUpdate(void);	//游戏结束
 
 /**
@@ -92,13 +96,15 @@ void fall_down(void);
  * @param m 方块旋转状态
  * @param x 欲检测位置的x坐标
  * @param y 欲检测位置的y坐标
+ * @return 如果产生碰撞，返回1，否则返回0
  */
 u8 judge_shape(int n, int m, int x, int y);
 
 /**
- * 产生新行
+ * 产生新方块
+ * @param begin 是否开始游戏的第一次产生方块
  */
-void new_shape(void);
+void new_shape(u8 begin);
 
 /**
  * 消行

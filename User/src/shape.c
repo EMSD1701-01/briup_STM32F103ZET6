@@ -12,7 +12,7 @@
 //方块边长
 #define SQUARE_WIDTH 20
 
-//形状集合
+//形状集合 
 u32 g_shape[7][4] = {
 	{33737728,33737728,33737728,33737728},
 	{50366600,258048,50366600,258048},
@@ -76,8 +76,8 @@ void print_menu(void)
  */
 void print_frame(void)
 {
-	briupLcdClear(GREEN);
-	printStr(10, 10, "Grade:", 16, 0, BLACK, WHITE);
+	briupLcdClear(WHITE);
+	//printStr(10, 10, "Grade:", 16, 0, BLACK, WHITE);
 }
 
 /**
@@ -86,9 +86,19 @@ void print_frame(void)
  */
 void print_gameover(u16 grade)
 {
-	printStr(5, 6, "Game Over", 32, 1, RED, WHITE);
-	printStr(5, 8, "Grade:", 32, 0, BLACK, WHITE);
-	printNum(11, 8, grade, 3, 32, 1);
+	printStr(5, 4, "Game Over", 32, 1, RED, WHITE);
+	printStr(5, 6, "Grade:", 32, 0, BLACK, WHITE);
+	printNum(11, 6, grade, 3, 32, 0);
+	
+	if(g_menu == MENU_AUTO)
+	{
+		printStr(4, 9, "  Restart  ", 32, 0, BLACK, WHITE);
+		printStr(4, 11, "    Menu   ", 32, 1, WHITE, BLUE);
+	}else
+	{
+		printStr(4, 9, "  Restart  ", 32, 1, WHITE, BLUE);
+		printStr(4, 11, "    Menu   ", 32, 0, BLACK, WHITE);
+	}
 }
 
 /**
