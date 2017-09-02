@@ -1,11 +1,10 @@
-
 #ifndef __BALLANCE_LCD_H__
 #define __BALLANCE_LCD_H__
 
 #include <stm32f10x.h>
-#include "briupDelay.h"
-#include "briupUsart.h"
-#include "briupFsmc.h"
+
+//是否使用横屏
+#define USE_HORIZONTAL 0
 
 //屏幕参数结构体定义
 typedef struct
@@ -13,7 +12,7 @@ typedef struct
 	u16 width;	//屏幕宽度 320
 	u16 height; //屏幕高度 480
 	u16 id;		//屏幕标识符
-	u8 dir;		//
+	u8 dir;		//屏幕方向
 	u8 wramcmd; //写RAM命令
 	u8 setxcmd; //设置横坐标命令
 	u8 setycmd; //设置纵坐标命令

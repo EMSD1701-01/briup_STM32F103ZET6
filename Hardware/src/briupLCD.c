@@ -1,6 +1,8 @@
-
 #include "briupLCD.h"
 #include "briupLCDFont.h"
+#include "briupDelay.h"
+#include "briupUsart.h"
+#include "briupFsmc.h"
 
 //LCD的画笔颜色和背景色	   
 u16 POINT_COLOR=0x0000;	//画笔颜色
