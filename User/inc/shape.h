@@ -36,11 +36,10 @@ void printStr(u16 x, u16 y, const char *str, u8 size, u8 mode, u16 point_color, 
  * @param x x坐标
  * @param y y坐标
  * @param num 打印的数字
- * @param len 长度
  * @param size 字号 12/16/32可选
  * @param mode 是否显示背景色
  */
-void printNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode);
+void printNum(u16 x, u16 y, u32 num, u8 size, u8 mode);
 
 /**
  * 打印菜单界面
@@ -59,14 +58,16 @@ void print_frame(void);
 /**
  * 打印得分
  * @param grade 得分
+ * @param record 是否破纪录
  */
-void print_grade(u16 grade);
+void print_grade(u16 grade, u16 record);
 
 /**
  * 打印游戏结束界面
  * @param grade 分数
+ * @param record 最高记录
  */
-void print_gameover(u16 grade);
+void print_gameover(u16 grade, u16 record);
 
 /**
  * 打印最小正方形

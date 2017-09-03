@@ -21,6 +21,7 @@ static u8 g_m[3];	//旋转状态 0.当前，1.下一个
 static u16 g_c[3];	//颜色	0.当前，1.下一个
 static u8 g_pause = 0;	//暂停
 static u16 g_grade = 0;	//分数
+static u16 g_record = 0;//最高纪录
 u32 g_seed;	//伪时间种子
 u16 g_map[g_row][g_col * 2];	//全局地图
 
@@ -82,7 +83,7 @@ static void onMenuKeyDown(u8 type)
 			changeGameState(STATE_PLAY);
 		}else
 		{
-			
+			//TODO AI功能
 		}
 	}
 }
@@ -136,7 +137,7 @@ static void onGameoverKeyDown(u8 type)
 		}else if(g_menu == MENU_MENU)
 		{
 			changeGameState(STATE_MENU);
-		}	
+		}
 	}
 }
 
@@ -213,6 +214,7 @@ static void onEnterPlay(void)
 	briupLcdClear(WHITE);
 	print_frame();
 	new_shape(1);
+	print_grade(g_grade, g_record);
 }
 
 /**
@@ -223,7 +225,9 @@ static void onEnterGameover(void)
 	g_menu = MENU_RESTART;
 	briupLcdClear(WHITE);
 	print_menu(8, GAMEOVER_MENU, 2, 0);
-	print_gameover(g_grade);
+	print_gameover(g_grade, g_record);
+	if(g_grade > g_record) 
+		g_record = g_grade;
 	setLed(LED_R);
 }
 
@@ -423,7 +427,7 @@ u8 is_full_line(u8 row)
 	u8 x;
 	for(x = 0; x < g_col; x++)
 	{
-		if(!g_map[row][x<<1]) 
+		if(!g_map[row][x<<1])
 			return 0;
 	}
 	return 1;
@@ -479,7 +483,7 @@ void destroy_line(void)
 	{
 		draw_matrix();
 		g_grade += line_cnt * 8;
-		print_grade(g_grade);
+		print_grade(g_grade, g_record);
 	}
 }
 

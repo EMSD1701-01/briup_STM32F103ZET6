@@ -49,12 +49,16 @@ void printStr(u16 x, u16 y, const char *str, u8 size, u8 mode, u16 point_color, 
  * @param x x坐标
  * @param y y坐标
  * @param num 打印的数字
- * @param len 长度
  * @param size 字号 12/16/32可选
  * @param mode 是否显示背景色
  */
-void printNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode)
+void printNum(u16 x, u16 y, u32 num, u8 size, u8 mode)
 {
+	u8 len = 0;
+	u16 t = num;
+	do{
+		len++;
+	}while(t = t / 10, t);
 	briupLcdShowxNum(x * size >> 1, y * size, num, len, size, mode);
 }
 
@@ -98,8 +102,8 @@ void print_frame(void)
 	printStr(30, 9, "Next2:", 16, 0, BLACK, WHITE);
 	briupLcdFastDrawLine(11 * SQUARE_WIDTH, 280, 320, 280, BLACK);
 	
-	printStr(30, 18, "Grade:", 16, 0, BLACK, WHITE);
-	print_grade(0);
+	printStr(30, 19, "Grade:", 16, 0, BLACK, WHITE);
+	printStr(30, 23, "Record:", 16, 0, BLACK, WHITE);
 	
 	//竖线
 	briupLcdFastDrawLine(11 * SQUARE_WIDTH, 0, 11 * SQUARE_WIDTH, 480, BLACK);
@@ -108,21 +112,30 @@ void print_frame(void)
 /**
  * 打印得分
  * @param grade 得分
+ * @param record 是否破纪录
  */
-void print_grade(u16 grade)
+void print_grade(u16 grade, u16 record)
 {
-	printNum(15, 10, grade, 3, 32, 0);
+	printNum(15, 10, grade, 32, 0);
+	printNum(15, 12, record, 32, 0);
 }
 
 /**
  * 打印游戏结束界面
  * @param grade 分数
+ * @param record 最高记录
  */
-void print_gameover(u16 grade)
+void print_gameover(u16 grade, u16 record)
 {
 	printStr(5, 3, "Game Over", 32, 1, RED, WHITE);
-	printStr(5, 5, "Grade:", 32, 0, BLACK, WHITE);
-	printNum(11, 5, grade, 3, 32, 0);
+	if(grade > record)
+	{
+		printStr(2, 5, "New Record:", 32, 1, BROWN, WHITE);
+		printNum(14, 5, grade, 32, 0);
+	}else{
+		printStr(5, 5, "Grade:", 32, 0, BLACK, WHITE);
+		printNum(12, 5, grade, 32, 0);
+	}
 }
 
 /**
