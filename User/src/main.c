@@ -29,6 +29,7 @@ int main()
 	changeGameState(STATE_MENU);
 	while(1)
 	{
+		g_seed++;
 		g_gameUpdate[g_gameState]();
 	}
 }
@@ -36,8 +37,8 @@ int main()
 void JoyHandler(u8 type)
 {
 	static u16 jcnt = 0; //按键延时计数器
-	delay_ms(200); //防止按键按下很短时间内再次响应按键
 	g_gameKeyDown[g_gameState](type);
+	delay_ms(200); //防止按键按下很短时间内再次响应按键
 	while(getJoy())
 	{
 		if(jcnt++ == 0xffff)

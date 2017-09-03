@@ -17,47 +17,54 @@ typedef enum GameState
 	STATE_GAMEOVER	//游戏结束
 }GameState_Type;
 
-//开始菜单
+//菜单
 typedef enum Menu
 {
 	MENU_PLAY,	//手动模式
-	MENU_AUTO	//自动模式
+	MENU_AUTO,	//自动模式
+	
+	MENU_RESTART,	//重新开始
+	MENU_MENU,		//进入主菜单
 }Menu_Type;
 
-//游戏结束菜单
-typedef enum GameOver
-{
-	GAME0VER_RESTART,	//重新开始
-	GAMEOVER_MENU		//进入菜单
-}GameOver_Type;
+
+//全局按键处理
+extern void(*g_gameKeyDown[3])(u8 type);
+//全局事件更新
+extern void(*g_gameUpdate[3])(void);
+//进入场景
+extern void(*g_gameEnter[3])(void);
 
 //全局游戏状态
 extern GameState_Type g_gameState;
-//全局菜单状态
-extern Menu_Type g_menu;
-//全局游戏按键处理
-extern void(*g_gameKeyDown[3])(u8 type);
-//全局游戏事件更新
-extern void(*g_gameUpdate[3])(void);
 //行数
 extern const u8 g_row;
 //列数
 extern const u8 g_col;
+//伪时间种子
+extern u32 g_seed;
 
 /**
  * 处理按键
  * @param type 按键类型
  */
-static void menuKeyDown(u8 type);		//菜单
-static void playKeyDown(u8 type);		//游戏中
-static void gameoverKeyDown(u8 type);	//游戏结束
+static void onMenuKeyDown(u8 type);		//菜单
+static void onPlayKeyDown(u8 type);		//游戏中
+static void onGameoverKeyDown(u8 type);	//游戏结束
 
 /**
  * 更新事件
  */
-static void menuUpdate(void);		//菜单
-static void playUpdate(void);		//游戏中
-static void gameoverUpdate(void);	//游戏结束
+static void onMenuUpdate(void);		//菜单
+static void onPlayUpdate(void);		//游戏中
+static void onGameoverUpdate(void);	//游戏结束
+
+/**
+ * 进入场景
+ */
+static void onEnterMenu(void);		//菜单
+static void onEnterPlay(void);		//游戏中
+static void onEnterGameover(void);	//游戏结束
 
 /**
  * 改变游戏状态
@@ -107,9 +114,33 @@ u8 judge_shape(int n, int m, int x, int y);
 void new_shape(u8 begin);
 
 /**
+ * 判断某行是否已满
+ * @param row 待判断行
+ * @return 如果已满返回1，否则返回0
+ */
+u8 is_full_line(u8 row);
+
+/**
+ * 判断某行是否为空行
+ * @param row 待判断行
+ * @return 如果为空行返回1，否则返回0
+ */
+u8 is_empty_line(u8 row);
+
+/**
  * 消行
  */
 void destroy_line(void);
+
+/**
+ * 存储当前方块到地图中
+ */
+void store_shape(void);
+
+/**
+ * 根据地图数据打印界面
+ */
+void draw_matrix(void);
 
 /**
  * 提示下落位置
