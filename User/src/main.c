@@ -14,14 +14,17 @@
 #include "briupNVIC.h"
 #include "briupLCD.h"
 
-void JoyHandler(u8 type);
+//#include "love.h"	//狗粮
+//#include "ning.h" //李宁
+#include "panda.h"	//熊猫 150 123
 
-u16 beepFreq[] = {
-	17208, 15332, 13657, 12893, 11479, 10227, 9109
-};
+void JoyHandler(u8 type);
 
 int main()
 {
+	u8 y;
+	Image_TypeDef imgTest;
+	
 	usart1Init(57600);
 	basePeriphInit();
 	delay_init(72);
@@ -29,14 +32,16 @@ int main()
 	NVICGroupInit(2);
 	TIM2Init(4);
 	
-	briupLcdDisplayOn();
 	briupLcdInit();
-	briupLcdFastDrawCircle(240, 240, 10, 2, 0);
 	setJoyInterrupt(JoyHandler);
 	
 	while(1)
 	{
-		breathLed();
+		briupLcdFastDrawLine(0, y-1, 150, y-1, WHITE);
+		briupLcdImageInit(&imgTest, 150, 123, 1, y++, (unsigned char *)gImage);
+		briupLcdImageDraw(&imgTest, 0);
+		//delay_ms(10);
+		//breathLed();
 	}
 }
 
@@ -46,27 +51,22 @@ void JoyHandler(u8 type)
 	switch(type)
 	{
 		case JOY_S:
-			TIM2Start(beepFreq[0]);
 			setLed(LED_R);
 		break;
 		
 		case JOY_D:
-			TIM2Start(beepFreq[1]);
 			setLed(LED_G);
 		break;
 		
 		case JOY_L:
-			TIM2Start(beepFreq[2]);
 			setLed(LED_B);
 		break;
 		
 		case JOY_U:
-			TIM2Start(beepFreq[3]);
 			setLed(LED_P);
 		break;
 		
 		case JOY_R:
-			TIM2Start(beepFreq[4]);
 			setLed(LED_C);
 		break;
 		
@@ -76,7 +76,5 @@ void JoyHandler(u8 type)
 	}
 	
 	while(getJoy());
-	TIM2Stop();
-	setBeep(0);
 }
 

@@ -1,2 +1,5 @@
 #并不需要工程项目
 /Project/
+*.jpg
+*.png
+*.bmp

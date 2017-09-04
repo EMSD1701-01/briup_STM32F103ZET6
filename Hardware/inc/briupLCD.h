@@ -1,11 +1,7 @@
-
 #ifndef __BALLANCE_LCD_H__
 #define __BALLANCE_LCD_H__
 
 #include <stm32f10x.h>
-#include "briupDelay.h"
-#include "briupUsart.h"
-#include "briupFsmc.h"
 
 //屏幕参数结构体定义
 typedef struct
@@ -13,15 +9,15 @@ typedef struct
 	u16 width;	//屏幕宽度 320
 	u16 height; //屏幕高度 480
 	u16 id;		//屏幕标识符
-	u8 dir;		//
-	u8 wramcmd; //写RAM命令
-	u8 setxcmd; //设置横坐标命令
-	u8 setycmd; //设置纵坐标命令
+	u8 dir;		//屏幕扫描方向
+	u8 wramcmd; //写RAM命令 0x2c
+	u8 setxcmd; //设置横坐标命令 0x2a
+	u8 setycmd; //设置纵坐标命令 0x2b
 }_lcd_dev;
 
-extern _lcd_dev lcddev;
-extern u16 POINT_COLOR;
-extern u16 BACK_COLOR;
+extern _lcd_dev lcddev;	//屏幕参数结构体
+extern u16 POINT_COLOR;	//前景色
+extern u16 BACK_COLOR;	//背景色
 
 #define LCD_LED_ON()	GPIOB->ODR |= 0x01;
 #define LCD_LED_OFF()	GPIOB->ODR &= ~0x01;
@@ -59,21 +55,21 @@ typedef struct
 #define BLACK      	0x0000	  
 #define BLUE       	0xF800 
 #define BRED        0XF81F
-#define GRED 			 	0XFFE0
-#define GBLUE			 	0X07FF
+#define GRED 		0XFFE0
+#define GBLUE		0X07FF
 #define RED         0x001F
 #define MAGENTA     0xF81F
 #define GREEN       0x07E0
 #define CYAN        0x7FFF
 #define YELLOW      0xFFE0
-#define BROWN 			0X457 
-#define BRRED 			0XFC07 
-#define GRAY  			0X8430 
+#define BROWN 		0X0457
+#define BRRED 		0XFC07 
+#define GRAY  		0X8430
 //GUI
 
-#define DARKBLUE      	 0X01CF	
-#define LIGHTBLUE      	 0X7D7C	
-#define GRAYBLUE       	 0X5458 
+#define DARKBLUE	0X01CF	
+#define LIGHTBLUE	0X7D7C	
+#define GRAYBLUE	0X5458 
 
 #define LIGHTGREEN     	0X841F 
 //#define LIGHTGRAY     0XEF5B 
@@ -81,6 +77,16 @@ typedef struct
 
 #define LGRAYBLUE      	0XA651 
 #define LBBLUE          0X2B12 
+
+//图片属性结构体
+typedef struct
+{
+	u16 imgW;	//宽度
+	u16 imgH;	//高度
+	u16 localX;	//x横坐标
+	u16 localY;	//y纵坐标
+	unsigned char *imgArr; 	//图片数据
+}Image_TypeDef;
 
 void briupLcdInit(void);	//液晶屏初始化函数
 void briupLcdDisplayOn(void);	//打开显示模式								//开显示
@@ -105,5 +111,16 @@ u16 LCD_ReadReg(u8 LCD_Reg);
 void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 back_colar);
 //显示数字
 void briupLcdShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode);
+
+/**
+ * LCD显示图片
+ */
+void briupLcdImageInit(Image_TypeDef * img, u16 imgW, u16 imgH, u16 localX, u16 localY, \
+						unsigned char* imgArr);
+
+/**
+ * 图片显示设置
+ */
+void briupLcdImageDraw(Image_TypeDef *img, u8 mode);
 
 #endif
