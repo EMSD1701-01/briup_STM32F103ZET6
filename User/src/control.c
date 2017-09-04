@@ -322,15 +322,7 @@ void fall_down(void)
 	print_mode_shape(g_n[0], g_m[0], g_x[0], g_y[0], WHITE);
 	g_y[0] += step - 1;
 	print_mode_shape(g_n[0], g_m[0], g_x[0], g_y[0], g_c[0]);
-
-	store_shape();
-	destroy_line();
-	if(g_y[0] <= 0) //游戏结束
-	{
-		changeGameState(STATE_GAMEOVER);
-		return;
-	}
-	new_shape(0);
+	//等待下一次下落刷新
 }
 
 /**
