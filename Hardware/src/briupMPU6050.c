@@ -86,5 +86,6 @@ void getMPU6050Data(short * x, short * y, short *z)
 		Yaw = 	atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;
 		*y = (s16)Pitch;
 		*x = (s16)Roll;
+		*z = (s16)Yaw;
 	}
 }

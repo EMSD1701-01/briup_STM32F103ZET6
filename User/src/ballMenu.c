@@ -15,7 +15,7 @@
 #define MENU_HELP 2
 #define MENU_RANKING 3
 
-static u8 g_menu = MENU_PLAY;
+static u8 g_menu;
 
 //菜单选项
 const static char *ITEMS[] = 
@@ -28,6 +28,7 @@ const static char *ITEMS[] =
  */
 void onEnterMenu(void)
 {
+	g_menu = MENU_PLAY;
 	briupLcdClear(WHITE);
 	briupLcdShowStr(2, 1, "                ", 32, 1, GREEN, BLACK);
 	briupLcdShowStr(2, 2, "  Balance Ball  ", 32, 1, GREEN, BLACK);
@@ -52,9 +53,20 @@ void onKeyDownMenu(u8 type)
 			print_menu(5, ITEMS, 4, g_menu);
 		break;
 		case JOY_S:
-			if(g_menu == MENU_PLAY)
+			switch(g_menu)
 			{
-				changeScene(SCENE_GAME);
+				case MENU_PLAY:
+					changeScene(SCENE_GAME);
+				break;
+				case MENU_LEVEL:
+					changeScene(SCENE_LEVEL);
+				break;
+				case MENU_HELP:
+					changeScene(SCENE_HELP);
+				break;
+				case MENU_RANKING:
+					changeScene(SCENE_RANK);
+				break;
 			}
 		break;
 		default: break;

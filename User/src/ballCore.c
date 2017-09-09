@@ -7,6 +7,9 @@
 #include "ballMenu.h"
 #include "ballGame.h"
 #include "ballGameover.h"
+#include "ballLevel.h"
+#include "ballRank.h"
+#include "ballHelp.h"
 #include "briupTIM2.h"
 #include "briupMPU6050.h"
 #include <string.h>
@@ -17,22 +20,46 @@ static Scene g_scene = SCENE_START;
 //更新向量表
 static void(*const g_onUpdate[])(void) = 
 {
-	onUpdateStart, onUpdateMenu, onUpdateGame, onUpdateGameover
+	onUpdateStart,
+	onUpdateMenu,
+	onUpdateGame,
+	onUpdateGameover,
+	onUpdateLevel,
+	onUpdateHelp,
+	onUpdateRank
 };
 //按键向量表
 static void(*const g_onKeyDown[])(u8 type) = 
 {
-	onKeyDownStart, onKeyDownMenu, onKeyDownGame, onKeyDownGameover
+	onKeyDownStart,
+	onKeyDownMenu,
+	onKeyDownGame,
+	onKeyDownGameover,
+	onKeyDownLevel,
+	onKeyDownHelp,
+	onKeyDownRank
 };
 //MPU6050传感器向量表
 static void(*const g_onSensor[])(short x, short y, short z) = 
 {
-	onSensorStart, onSensorMenu, onSensorGame, onSensorGameover
+	onSensorStart,
+	onSensorMenu,
+	onSensorGame,
+	onSensorGameover,
+	onSensorLevel,
+	onSensorHelp,
+	onSensorRank
 };
 //进入场景向量表
 static void(*const g_onEnter[])(void) = 
 {
-	onEnterStart, onEnterMenu, onEnterGame, onEnterGameover
+	onEnterStart,
+	onEnterMenu,
+	onEnterGame,
+	onEnterGameover,
+	onEnterLevel,
+	onEnterHelp,
+	onEnterRank
 };
 
 /**

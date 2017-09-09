@@ -8,14 +8,17 @@
 #include "briupBasePeriph.h"	//基础外设
 #include "briupLCD.h"			//LCD
 #include "briupDelay.h"			//延时
-#include <stdio.h>
+#include <stdio.h>				//printf
 
 typedef enum
 {
 	SCENE_START,	//初始化场景，注意：其它场景不能主动切换到此场景
 	SCENE_MENU,		//菜单场景
 	SCENE_GAME,		//游戏场景
-	SCENE_GAMEOVER	//游戏结束场景
+	SCENE_GAMEOVER,	//游戏结束场景
+	SCENE_LEVEL,	//选择关卡
+	SCENE_HELP,		//帮助
+	SCENE_RANK		//排行榜
 }Scene;
 
 /**

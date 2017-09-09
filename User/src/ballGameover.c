@@ -7,7 +7,7 @@
 #define MENU_RESTART 0
 #define MENU_MENU 1
 
-static u8 g_menu = MENU_RESTART;
+static u8 g_menu;
 
 //菜单选项
 const static char *ITEMS[] = 
@@ -20,6 +20,7 @@ const static char *ITEMS[] =
  */
 void onEnterGameover(void)
 {
+	g_menu = MENU_RESTART;
 	briupLcdClear(WHITE);
 	briupLcdShowStr(4, 4, "  Game Over  ", 32, 1, RED, WHITE);
 	print_menu(7, ITEMS, 2, g_menu);
