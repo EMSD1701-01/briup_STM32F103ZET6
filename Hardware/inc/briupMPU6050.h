@@ -12,7 +12,7 @@
 
 void briupMPU6050Init(void);
 
-void getMPU6050Data(short * x, short * y);
+void getMPU6050Data(short * x, short * y, short *z);
 
 #endif
 

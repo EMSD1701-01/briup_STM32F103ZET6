@@ -3,21 +3,33 @@
 
 #include <stm32f10x.h>
 
+//是否使用横屏
+#define USE_HORIZONTAL 0
+
 //屏幕参数结构体定义
 typedef struct
 {
 	u16 width;	//屏幕宽度 320
 	u16 height; //屏幕高度 480
 	u16 id;		//屏幕标识符
-	u8 dir;		//屏幕扫描方向
-	u8 wramcmd; //写RAM命令 0x2c
-	u8 setxcmd; //设置横坐标命令 0x2a
-	u8 setycmd; //设置纵坐标命令 0x2b
+	u8 dir;		//屏幕方向
+	u8 wramcmd; //写RAM命令
+	u8 setxcmd; //设置横坐标命令
+	u8 setycmd; //设置纵坐标命令
 }_lcd_dev;
 
-extern _lcd_dev lcddev;	//屏幕参数结构体
-extern u16 POINT_COLOR;	//前景色
-extern u16 BACK_COLOR;	//背景色
+//图片属性结构体
+typedef struct
+{
+	u16 imgW;		//宽度
+	u16 imgH;		//高度
+	u16 *imgArr;	//图片数据
+	u16 maskColor;	//掩码图数据
+}Image_TypeDef;
+
+extern _lcd_dev lcddev;
+extern u16 POINT_COLOR;
+extern u16 BACK_COLOR;
 
 #define LCD_LED_ON()	GPIOB->ODR |= 0x01;
 #define LCD_LED_OFF()	GPIOB->ODR &= ~0x01;
@@ -48,28 +60,28 @@ typedef struct
 #define U2D_L2R  4 //从上到下,从左到右
 #define U2D_R2L  5 //从上到下,从右到左
 #define D2U_L2R  6 //从下到上,从左到右
-#define D2U_R2L  7 //从下到上,从右到左	 
+#define D2U_R2L  7 //从下到上,从右到左
 
 #define DFT_SCAN_DIR  L2R_U2D  //默认的扫描方向
 #define WHITE       0xFFFF
 #define BLACK      	0x0000	  
-#define BLUE       	0xF800 
+#define BLUE       	0x001F
 #define BRED        0XF81F
 #define GRED 		0XFFE0
 #define GBLUE		0X07FF
-#define RED         0x001F
+#define RED         0xF800 
 #define MAGENTA     0xF81F
 #define GREEN       0x07E0
 #define CYAN        0x7FFF
 #define YELLOW      0xFFE0
-#define BROWN 		0X0457
+#define BROWN 		0X457 
 #define BRRED 		0XFC07 
-#define GRAY  		0X8430
+#define GRAY  		0X8430 
 //GUI
 
-#define DARKBLUE	0X01CF	
-#define LIGHTBLUE	0X7D7C	
-#define GRAYBLUE	0X5458 
+#define DARKBLUE      	 0X01CF	
+#define LIGHTBLUE      	 0X7D7C	
+#define GRAYBLUE       	 0X5458 
 
 #define LIGHTGREEN     	0X841F 
 //#define LIGHTGRAY     0XEF5B 
@@ -78,15 +90,9 @@ typedef struct
 #define LGRAYBLUE      	0XA651 
 #define LBBLUE          0X2B12 
 
-//图片属性结构体
-typedef struct
-{
-	u16 imgW;	//宽度
-	u16 imgH;	//高度
-	u16 localX;	//x横坐标
-	u16 localY;	//y纵坐标
-	unsigned char *imgArr; 	//图片数据
-}Image_TypeDef;
+//写寄存器函数
+//regval:寄存器值
+void LCD_WR_REG(u16 regval);
 
 void briupLcdInit(void);	//液晶屏初始化函数
 void briupLcdDisplayOn(void);	//打开显示模式								//开显示
@@ -108,19 +114,47 @@ void LCD_WriteReg(u8 LCD_Reg, u16 LCD_RegValue);
 u16 LCD_ReadReg(u8 LCD_Reg);
 
 //显示字符串
+void briupLcdShowStr(u16 x,u16 y,const char *str,u8 size,u8 mode,u16 point_colar,u16 back_colar);
+//显示字符
 void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 back_colar);
 //显示数字
 void briupLcdShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode);
 
 /**
  * LCD显示图片
+ * @param img 图片结构体
+ * @param imgW 图片宽度
+ * @param imgH图片高度
+ * @param imgArr 图片数据
  */
-void briupLcdImageInit(Image_TypeDef * img, u16 imgW, u16 imgH, u16 localX, u16 localY, \
-						unsigned char* imgArr);
+void briupLcdImageInit(Image_TypeDef * img, u16 imgW, u16 imgH,  u16* imgArr);
 
 /**
- * 图片显示设置
+ * 显示图片
+ * @param img 显示的图片
+ * @param x 显示的横坐标
+ * @param y 显示的纵坐标
  */
-void briupLcdImageDraw(Image_TypeDef *img, u8 mode);
+void briupLcdImageDraw(const Image_TypeDef *img, u16 x, u16 y);
+
+/**
+ * 显示包含掩码颜色图片
+ * @param img 显示的图片
+ * @param tmpMatrix 临时存储数组，大小必须至少和图片大小相当
+ * @param x 显示的横坐标
+ * @param y 显示的纵坐标
+ * @param maskColor 掩码颜色 这个颜色将不会显示，并且不会覆盖背景
+ */
+void briupLcdImageDrawWithMask(Image_TypeDef *img, u16 *tmpMatrix, u16 x, u16 y, u16 maskColor);
+
+/**
+ * 读取内存中的图片
+ * @param img 存储数组
+ * @param x 起始位置横坐标
+ * @param y 起始位置纵坐标
+ * @param w 宽度
+ * @param h 高度
+ */
+void briupLcdImageRead(u16 *img, u16 x, u16 y, u16 w, u16 h);
 
 #endif

@@ -72,7 +72,7 @@ void briupMPU6050Init(void)
 	}
 }
 
-void getMPU6050Data(short * x, short * y)
+void getMPU6050Data(short * x, short * y, short *z)
 {
 	dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors,&more);	//从FIFO获取数据包 timestamp为采集数据速度，此时为0.全速模式
 	if (sensors & INV_WXYZ_QUAT )

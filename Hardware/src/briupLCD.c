@@ -1,8 +1,8 @@
 #include "briupLCD.h"
 #include "briupLCDFont.h"
 #include "briupDelay.h"
-#include "briupUsart.h"
 #include "briupFsmc.h"
+#include <stdio.h>
 
 //LCD的画笔颜色和背景色	   
 u16 POINT_COLOR=0x0000;	//画笔颜色
@@ -11,7 +11,6 @@ u16 BACK_COLOR=0xFFFF;  //背景色
 //管理LCD重要参数
 //默认为竖屏
 _lcd_dev lcddev;
-	
 		   
 //写寄存器函数
 //regval:寄存器值
@@ -22,13 +21,13 @@ void LCD_WR_REG(u16 regval)
 //写LCD数据
 //data:要写入的值
 void LCD_WR_DATA(u16 data)
-{										    	   
+{												   
 	LCD->LCD_RAM=data;		 
 }
 //读LCD数据
 //返回值:读到的值
 u16 LCD_RD_DATA(void)
-{										    	   
+{												   
 	return LCD->LCD_RAM;		 
 }					   
 //写寄存器
@@ -37,7 +36,7 @@ u16 LCD_RD_DATA(void)
 void LCD_WriteReg(u8 LCD_Reg, u16 LCD_RegValue)
 {	
 	LCD->LCD_REG = LCD_Reg;		//写入要写的寄存器序号	 
-	LCD->LCD_RAM = LCD_RegValue;//写入数据	    		 
+	LCD->LCD_RAM = LCD_RegValue;//写入数据				 
 }	   
 //读寄存器
 //LCD_Reg:寄存器地址
@@ -64,30 +63,29 @@ void  briupLcdInit(void)
 	lcddev.id=LCD_RD_DATA();
 	lcddev.id<<=8;
 	lcddev.id|=LCD_RD_DATA();
-	printf("%x\r\n", lcddev.id);
 	
-	LCD_WR_REG(0xC0);  		//电源控制
-	LCD_WR_DATA(0x0a);     //1e  contrast
-	LCD_WR_DATA(0x0a);     //1e  contrast
+		LCD_WR_REG(0xC0);  		//电源控制
+	LCD_WR_DATA(0x0a);	 //1e  contrast
+	LCD_WR_DATA(0x0a);	 //1e  contrast
 	
-	LCD_WR_REG(0xC1);				//	电源控制
-	LCD_WR_DATA(0x44);    //41
+		LCD_WR_REG(0xC1);				//	电源控制
+	LCD_WR_DATA(0x44);	//41
 	
-	LCD_WR_REG(0XC5);
+		LCD_WR_REG(0XC5);
 	LCD_WR_DATA(0x00);
 	LCD_WR_DATA(0x09);  //vcom  10
 	
-	LCD_WR_REG(0xB1);				//帧速率控制
+		LCD_WR_REG(0xB1);				//帧速率控制
 	LCD_WR_DATA(0x90);			//56HZ
 	LCD_WR_DATA(0x11);			//25 clocks
 	
-	LCD_WR_REG(0xB4);			//	显示反转控制
+		LCD_WR_REG(0xB4);			//	显示反转控制
 	LCD_WR_DATA(0x02);
 	
-	LCD_WR_REG(0xB7);			//输入模式设置！！！！！！！
+		LCD_WR_REG(0xB7);			//输入模式设置！！！！！！！
 	LCD_WR_DATA(0xC6);
 	
-	LCD_WR_REG(0xB6);		//	显示功能控制
+		LCD_WR_REG(0xB6);		//	显示功能控制
 	LCD_WR_DATA(0x00);
 	LCD_WR_DATA(0x22);//0 GS SS SM ISC[3:0];??GS SS??????,????R36
 	LCD_WR_DATA(0x3B);
@@ -109,7 +107,7 @@ void  briupLcdInit(void)
 	LCD_WR_DATA(0x24);
 	LCD_WR_DATA(0x0F);
 	
-	LCD_WR_REG(0XE1);			//消除伽马矫正
+		LCD_WR_REG(0XE1);			//消除伽马矫正
 	LCD_WR_DATA(0x00);
 	LCD_WR_DATA(0x1B);
 	LCD_WR_DATA(0x1E);
@@ -181,7 +179,7 @@ void  briupLcdInit(void)
 	lcddev.dir=0;//竖屏				 	 		
 	lcddev.width=320;
 	lcddev.height=480;	
-	LCD_WriteReg(0x36,0x08); //0x08
+	LCD_WriteReg(0x36,0x08);
 #endif
 	
 	LCD_LED_ON();
@@ -400,14 +398,27 @@ void briupLcdFastDrawCircle( u16 xc, u16 yc, u16 r, u16 color, u8 full)
 u32 LCD_Pow(u8 m,u8 n)
 {
 	u32 result=1;	 
-	while(n--)result*=m;    
+	while(n--)result*=m;	
 	return result;
+}
+
+//在指定位置显示一个字符串
+//x,y:起始坐标
+//str:要显示的字符串
+//size:字体大小 12/16/32
+//mode:叠加方式(1)还是非叠加方式(0)
+void briupLcdShowStr(u16 x,u16 y,const char *str,u8 size,u8 mode,u16 point_colar,u16 back_colar)
+{
+	while(*str)
+	{
+		briupLcdShowChar(x++ * size / 2, y * size, *str++, size, mode, point_colar, back_colar);
+	}
 }
 
 //在指定位置显示一个字符
 //x,y:起始坐标
 //num:要显示的字符:" "--->"~"
-//size:字体大小 12/16
+//size:字体大小 12/16/32
 //mode:叠加方式(1)还是非叠加方式(0)
 void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 back_colar)
 {
@@ -420,15 +431,15 @@ void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 bac
 	if(!mode) //非叠加方式
 	{
 				if(size == 12)size_x = 12;  //调用1206字体
-				if(size == 16)size_x = 16;	//调用1608字体 	                          
+				if(size == 16)size_x = 16;	//调用1608字体 							  
 				if(size == 32){size_x = 64;Supplementary_data_x=960;}	//调用3210字体 
 		for(t=0;t<size_x;t++)
-	    {   
+		{   
 				if(size == 12)temp=asc2_1206[num][t];  //调用1206字体
-				if(size == 16)temp=asc2_1608[num][t];	 //调用1608字体 	                          
+				if(size == 16)temp=asc2_1608[num][t];	 //调用1608字体 							  
 				if(size == 32)temp=asc2_3210[num][t];	 //调用3210字体
 				for(t1=0;t1<8;t1++)
-				{			    
+				{				
 					if(temp&0x80)POINT_COLOR=colortemp;
 					else POINT_COLOR=BACK_COLOR;
 					briupLcdFastDrawPoint( x, y, POINT_COLOR);	
@@ -443,19 +454,19 @@ void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 bac
 						break;
 					}
 				}  	 
-	    }    
+		}	
 	}else//叠加方式
 	{
 			if(size == 12)size_x = 12;  //调用1206字体
-			if(size == 16)size_x = 16;	//调用1608字体 	                          
+			if(size == 16)size_x = 16;	//调用1608字体 							  
 			if(size == 32){size_x = 64;Supplementary_data_x=960;}	//调用3210字体 
-	    for(t=0;t<size_x;t++)
-	    {   
+		for(t=0;t<size_x;t++)
+		{   
 				if(size == 12)temp=asc2_1206[num][t];  //调用1206字体
-				if(size == 16)temp=asc2_1608[num][t];	 //调用1608字体 	                          
-				if(size == 32)temp=asc2_3210[num][t];	 //调用3210字体                          
+				if(size == 16)temp=asc2_1608[num][t];	 //调用1608字体 							  
+				if(size == 32)temp=asc2_3210[num][t];	 //调用3210字体						  
 				for(t1=0;t1<8;t1++)
-				{			    
+				{				
 					if(temp&0x80)briupLcdFastDrawPoint( x, y, point_colar);
 					else briupLcdFastDrawPoint( x, y, back_colar);
 					temp<<=1;
@@ -469,9 +480,9 @@ void briupLcdShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode,u16 point_colar,u16 bac
 						break;
 					}
 				}  	 
-	    }     
+		}	 
 	}
-	POINT_COLOR=colortemp;	    	   	 	  
+	POINT_COLOR=colortemp;			   	 	  
 }   
 
 //显示数字,高位为0,还是显示
@@ -504,67 +515,97 @@ void briupLcdShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode)
 	}
 }
 
+
 /**
  * LCD显示图片
  * @param img 图片结构体
  * @param imgW 图片宽度
  * @param imgH图片高度
- * @param localX 横坐标
- * @param localY 纵坐标
  * @param imgArr 图片数据
  */
-void briupLcdImageInit(Image_TypeDef * img, u16 imgW, u16 imgH, u16 localX, u16 localY, \
-						unsigned char* imgArr)
+void briupLcdImageInit(Image_TypeDef * img, u16 imgW, u16 imgH, u16* imgArr)
 {
 	img->imgH = imgH;
 	img->imgW = imgW;
-	img->localX = localX;
-	img->localY = localY;
 	img->imgArr = imgArr;
 }
 
 /**
  * 图片显示设置
+ * @param img 显示的图片
+ * @param x 显示的横坐标
+ * @param y 显示的纵坐标
  */
-void briupLcdImageDraw(Image_TypeDef *img, u8 mode)
+void briupLcdImageDraw(const Image_TypeDef *img, u16 x, u16 y)
 {
-	u16 imgColor;
-	u32 i, j;
+	u32 i;
 	
 	//设置横向显示区域（列宽）
 	LCD->LCD_REG = 0x2a;
 	//设置起始列
-	LCD->LCD_RAM = img->localX >> 8;
-	LCD->LCD_RAM = img->localX & 0xff;
+	LCD->LCD_RAM = x >> 8;
+	LCD->LCD_RAM = x & 0xff;
 	//设置结束列
-	LCD->LCD_RAM = (img->localX + img->imgW - 1) >> 8;
-	LCD->LCD_RAM = (img->localX + img->imgW - 1) & 0xff;
+	LCD->LCD_RAM = (x + img->imgW - 1) >> 8;
+	LCD->LCD_RAM = (x + img->imgW - 1) & 0xff;
 	
 	//设置纵向显示区域（行高）
 	LCD->LCD_REG = 0x2b;
 	//设置起始列
-	LCD->LCD_RAM = img->localY >> 8;
-	LCD->LCD_RAM = img->localY & 0xff;
+	LCD->LCD_RAM = y >> 8;
+	LCD->LCD_RAM = y & 0xff;
 	//设置结束列
-	LCD->LCD_RAM = (img->localY + img->imgH) >> 8;
-	LCD->LCD_RAM = (img->localY + img->imgH) & 0xff;
+	LCD->LCD_RAM = (y + img->imgH - 1) >> 8;
+	LCD->LCD_RAM = (y + img->imgH - 1) & 0xff;
 	
 	//发送图片数据
 	LCD->LCD_REG = 0x2c;
-	//顺序将图像数据组合后发送
 	for(i = 0; i < img->imgH * img->imgW; i++)
 	{
-		LCD->LCD_RAM = ((u16*)img->imgArr)[i];
+		LCD->LCD_RAM = img->imgArr[i];
 	}
+}
+
+void briupLcdImageDrawWithMask(Image_TypeDef *img, u16 *tmpMatrix, u16 x, u16 y, u16 maskColor)
+{
+	u16 i, j;
+	u16 *oldImgArr = img->imgArr;
+	briupLcdImageRead(tmpMatrix, x, y, img->imgW, img->imgH);
+	for(i = 0; i < img->imgH; i++)
+	{
+		for(j = 0; j < img->imgW; j++)
+		{
+			if(img->imgArr[i * img->imgW + j] != 0)
+			{
+				tmpMatrix[i * img->imgW + j] = img->imgArr[i * img->imgW + j];
+			}
+		}
+	}
+	img->imgArr = tmpMatrix;
+	briupLcdImageDraw(img, x, y);
+	img->imgArr = oldImgArr;
+}
+
+void briupLcdImageRead(u16 *tmpMatrix, u16 x, u16 y, u16 w, u16 h)
+{
+	u32 i;
+	LCD->LCD_REG = 0x2a;
+	LCD->LCD_RAM = x >> 8;
+	LCD->LCD_RAM = x & 0xff;
+	LCD->LCD_RAM = (x + w - 1) >> 8;
+	LCD->LCD_RAM = (x + w - 1) & 0xff;
 	
-//	for(i = 0; i < img->imgH; i++)
-//	{
-//		for(j = 0; j < img->imgW; j++)
-//		{
-//			imgColor = img->imgArr[((j + i * img->imgW) << 1) + 1] << 8;
-//			imgColor |= img->imgArr[(j + i * img->imgW) << 1];
-//			LCD->LCD_RAM = imgColor;
-//		}
-//	}
+	LCD->LCD_REG = 0x2b;
+	LCD->LCD_RAM = y >> 8;
+	LCD->LCD_RAM = y & 0xff;
+	LCD->LCD_RAM = (y + h - 1) >> 8;
+	LCD->LCD_RAM = (y + h - 1) & 0xff;
+	
+	LCD->LCD_REG = 0x2e;
+	i = LCD->LCD_RAM;
+	for(i = 0; i < w * h; i++)
+	{
+		tmpMatrix[i] = LCD->LCD_RAM;
+	}
 }
 
