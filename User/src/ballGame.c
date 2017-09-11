@@ -5,6 +5,7 @@
 #include "ballLevel.h"
 #include "ballCore.h"
 #include "briupLCD.h"
+#include "IC24C04.h"
 #include "image.h"
 
 //全局地图

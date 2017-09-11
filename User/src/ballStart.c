@@ -9,6 +9,7 @@
 #include "briupNVIC.h"
 #include "briupMPU6050.h"
 #include "briupUsart.h"
+#include "IC24C04.h"
 
 /**
  * 进入场景时执行一次
@@ -21,6 +22,7 @@ void onEnterStart(void)
 	delay_init(72);
 	briupLcdInit();
 	TIM2Init(72);
+	C04Init();
 	briupMPU6050Init();
 	
 	changeScene(SCENE_MENU);
