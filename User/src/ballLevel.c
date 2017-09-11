@@ -9,8 +9,6 @@
 //记录当前等级
 static u8 g_level = 0;
 
-static void selectLevel(u8 level);
-
 /**
  * 进入场景时执行一次
  */
@@ -30,7 +28,7 @@ void onEnterLevel(void)
 	briupLcdFastDrawDirection(15, 320 - 15, 360, 360 + 100,  BLACK, 0);
 	briupLcdShowStr(5, 22, " Hard ", 16, 1, RED, WHITE);
 	
-	selectLevel(g_level);
+	setLevel(g_level, 1);
 }
 
 /**
@@ -45,16 +43,16 @@ void onKeyDownLevel(u8 type)
 			changeScene(SCENE_GAME);
 		break;
 		case JOY_L:
-			selectLevel(g_level - 3);
+			setLevel(g_level - 3, 1);
 		break;
 		case JOY_R:
-			selectLevel(g_level + 3);
+			setLevel(g_level + 3, 1);
 		break;
 		case JOY_D:
-			selectLevel(g_level - 1);
+			setLevel(g_level - 1, 1);
 		break;
 		case JOY_U:
-			selectLevel(g_level + 1);
+			setLevel(g_level + 1, 1);
 		break;
 		default: break;
 	}
@@ -62,6 +60,7 @@ void onKeyDownLevel(u8 type)
 
 /**
  * 获取当前关卡等级
+ * @return 当前关卡
  */
 u8 getLevel(void)
 {
@@ -84,10 +83,12 @@ void onSensorLevel(short x, short y, short z)
 
 /**
  * 选择关卡
+ * @param level 设置的关卡等级
+ * @param needDraw 是否需要绘制
  */
-static void selectLevel(u8 level)
+void setLevel(u8 level, u8 needDraw)
 {
-	u8 r, c;
+	u8 c;
 	if(level > MAX_LEVEL)
 		return;
 	

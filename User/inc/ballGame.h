@@ -6,6 +6,19 @@
 
 #include <stm32f10x.h>
 
+typedef enum
+{
+	GAMESTATE_PLAY,	//游戏中
+	GAMESTATE_WIN,	//胜利
+	GAMESTATE_LOSE	//失败
+}GameState;
+
+/**
+ * 获取游戏状态
+ * @return 游戏结果
+ */
+GameState getGameState(void);
+
 /**
  * 进入场景时执行一次
  */
